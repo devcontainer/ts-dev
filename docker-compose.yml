@@ -1,0 +1,17 @@
+version: "3"
+services:
+  sbx:
+    container_name: sbx
+    image: ashtr/devbox
+    command: |
+      /bin/bash -c "(yarn install && ./node_modules/.bin/parcel --port 5000 --hmr-port 5001 index.html)"      
+    ports:
+      - 5000:5000
+      - 5001:5001
+    volumes:
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
+    networks: 
+      - tsdev
+networks: 
+  tsdev:
