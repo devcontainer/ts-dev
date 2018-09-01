@@ -1,6 +1,49 @@
 {
+  "name": "ts-dev",
+  "version": "1.0.0",
+  "description": "dev env for ts apps",
+  "main": "index.ts",
+  "repository": "git@github.com:devcontainer/ts-dev.git",
+  "author": "Ashish <gotoashishgupta@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "prestart": "yarn install",
+    "start": "parcel --port ${APP_PORT} --hmr-port ${HMR_PORT} index.html",
+    "test": "jest --watch"
+  },
+  "dependencies": {
+    "ramda": "^0.25.0",
+    "rxjs": "^6.2.2"
+  },
   "devDependencies": {
-    "typescript": "^3.0.1",
-    "parcel-bundler": "^1.9.7"
+    "@types/jest": "^23.3.1",
+    "@types/node": "^10.9.4",
+    "jest": "^23.5.0",
+    "parcel-bundler": "^1.9.7",
+    "ts-jest": "^23.1.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.0.3"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "^.+\\.(test|spec)\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/",
+      "/coverage/"
+    ],
+    "collectCoverage": true
   }
 }
