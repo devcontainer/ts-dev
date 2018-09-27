@@ -1,10 +1,10 @@
-dist
-.cache
 node_modules
 bower_components
 *.log
 .DS_Store
+.cache
 coverage
-
+dist
+docker
 
 

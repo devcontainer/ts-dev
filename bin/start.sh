@@ -1,10 +1,11 @@
 #!/bin/bash
-# set -ex
-ROOT_DIR="$(dirname $0)/../"
+set -eux
+
+ROOT_DIR="$(dirname $0)/.."
 
 PROJECTS=("sbx" "")
 # DEPLOYMENT_ZONE = dev | prod | qa
-DEPLOYMENT_ZONE=("default" "prod" "qa" "dev" "")
+DEPLOYMENT_ZONE=("default" "prod" "qa" "dev")
 randFile=$(md5 <(echo $(pwd)) | cut -d' ' -f4 | cut  -c1-6)
 OIFS="${IFS}"
 IFS=","
@@ -14,6 +15,6 @@ IFS="${OIFS}"
 unset -v IFS
 source ${randFile} && rm -rf ${randFile}
 
-docker-compose -f ${ROOT_DIR}/docker/docker-compose.yml config
-docker-compose -f ${ROOT_DIR}/docker/docker-compose.yml down --remove-orphans
-docker-compose --file ${ROOT_DIR}/docker/docker-compose.yml --project-name ${PROJECT_NAME:-$(basename ${PWD%/*})} up --build
+docker-compose -f ${ROOT_DIR}/docker-compose.yml $([[ "${DEBUG}" = true ]] && echo "-f ${ROOT_DIR}/docker-compose.debug.yml") config
+docker-compose -f ${ROOT_DIR}/docker-compose.yml $([[ "${DEBUG}" = true ]] && echo "-f ${ROOT_DIR}/docker-compose.debug.yml") down --remove-orphans
+docker-compose --file ${ROOT_DIR}/docker-compose.yml $([[ "${DEBUG}" = true ]] && echo "-f ${ROOT_DIR}/docker-compose.debug.yml") --project-name ${PROJECT_NAME:-$(basename ${PWD%/*})} up --build

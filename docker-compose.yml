@@ -1,43 +1,45 @@
-version: "3.2"
+version: "3.6"
 services:
   sbx:
     container_name: sbx
-    image: ashtr/fe-devbox:carbon-alpine
+    hostname: sbx.local
+    image: ashtr/devbox:ts
     entrypoint: ./bin/sbx.entrypoint.sh
     ports:
       - ${APP_PORT}:${APP_PORT}
       - ${HMR_PORT}:${HMR_PORT}
       - ${DEBUG_PORT}:${DEBUG_PORT}
     env_file:
-      - ../environment/.sbx.default.env
-      - ../environment/.sbx.${NODE_ENV}.env
-      - ../environment/.sbx.env
+      - ./environment/.sbx.default.env
+      - ./environment/.sbx.${NODE_ENV}.env
+      - ./environment/.sbx.env
     environment:
       GIT_USER_NAME: ${GIT_USER_NAME}
       GIT_USER_EMAIL: ${GIT_USER_EMAIL}
     volumes:
-      - ../:${APP_DIR}
+      - ./:${APP_DIR}
     working_dir: ${APP_DIR}
-    networks: 
+    networks:
       - tsdev
   sbx-test:
-    depends_on: 
+    depends_on:
       - sbx
     container_name: sbx-test
-    image: ashtr/fe-devbox:carbon-alpine
+    hostname: sbx-test.local
+    image: ashtr/devbox:ts
     command: >
       yarn test
     env_file:
-      - ../environment/.sbx.default.env
-      - ../environment/.sbx.qa.env
-      - ../environment/.sbx.env
+      - ./environment/.sbx.default.env
+      - ./environment/.sbx.qa.env
+      - ./environment/.sbx.env
     environment:
       GIT_USER_NAME: ${GIT_USER_NAME}
       GIT_USER_EMAIL: ${GIT_USER_EMAIL}
     volumes:
-      - ../:${APP_DIR}:cached
+      - ./:${APP_DIR}:cached
     working_dir: ${APP_DIR}
-    networks: 
+    networks:
       - tsdev
 networks:
-  tsdev:
+  tsdev: {}
