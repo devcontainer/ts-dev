@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -x
 
 ROOT_DIR="$(dirname $0)/.."
 

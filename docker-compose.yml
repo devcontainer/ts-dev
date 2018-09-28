@@ -21,25 +21,25 @@ services:
     working_dir: ${APP_DIR}
     networks:
       - tsdev
-  sbx-test:
-    depends_on:
-      - sbx
-    container_name: sbx-test
-    hostname: sbx-test.local
-    image: ashtr/devbox:ts
-    command: >
-      yarn test
-    env_file:
-      - ./environment/.sbx.default.env
-      - ./environment/.sbx.qa.env
-      - ./environment/.sbx.env
-    environment:
-      GIT_USER_NAME: ${GIT_USER_NAME}
-      GIT_USER_EMAIL: ${GIT_USER_EMAIL}
-    volumes:
-      - ./:${APP_DIR}:cached
-    working_dir: ${APP_DIR}
-    networks:
-      - tsdev
+  # sbx-test:
+  #   depends_on:
+  #     - sbx
+  #   container_name: sbx-test
+  #   hostname: sbx-test.local
+  #   image: ashtr/devbox:ts
+  #   command: >
+  #     yarn test
+  #   env_file:
+  #     - ./environment/.sbx.default.env
+  #     - ./environment/.sbx.qa.env
+  #     - ./environment/.sbx.env
+  #   environment:
+  #     GIT_USER_NAME: ${GIT_USER_NAME}
+  #     GIT_USER_EMAIL: ${GIT_USER_EMAIL}
+  #   volumes:
+  #     - ./:${APP_DIR}:cached
+  #   working_dir: ${APP_DIR}
+  #   networks:
+  #     - tsdev
 networks:
   tsdev: {}
